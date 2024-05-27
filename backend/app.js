@@ -1,5 +1,7 @@
 // Import the express module
 const express=require('express');
+// Import dotenv
+require('dotenv').config();
 // Create an instance of the express application
 const app=express();
 // Specify a port number for the server
