@@ -15,7 +15,7 @@ const MessageBoard = () => {
     return (
         <>
             <h2>Welcome to your message board!</h2>
-            <div className='input-container'>
+            {/* <div className='input-container'> */}
                 <p>Share your thoughts here: </p>
                 <input 
                     type='text' 
@@ -23,7 +23,7 @@ const MessageBoard = () => {
                     onChange={(e) => setMessage(e.target.value)}></input>
                 <br></br>
                 <button type='submit'>Submit</button>
-            </div>
+            {/* </div> */}
         </>
     )
 }
