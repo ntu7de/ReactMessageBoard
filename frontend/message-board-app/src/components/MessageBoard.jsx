@@ -7,8 +7,9 @@ const MessageBoard = () => {
     const [message, setMessage] = useState("");
     const [username, setUsername] = useState("");
     const [allData, setAllData] = useState([]);
+    const [buttonMethods, setButtonMethods] = useState([]);
 
-    // CRUD: Update
+    // CRUD: Create
     const handleSubmit = async (e) => {
         e.preventDefault();
         const body = {
@@ -39,9 +40,26 @@ const MessageBoard = () => {
         } catch (error) {
             console.log("Error fetching messages: ", error)
         }
-    }    
+    }
+    
+    const handleEdit = async (id, newMessage) => {
+        try {
+            const response = await axios.put(`http://localhost:8000/messages/${id}`, {
+                message: newMessage,
+            })
+            // console.log('update response', response);
+            fetchData();
+        } catch (error) {
+            console.log("Error updating post: ", error);
+        }
+    }
+
+    const handleDelete = (id) => {
+        console.log(id);
+    }
 
     useEffect(() => {
+        setButtonMethods([handleEdit, handleDelete]);
         fetchData();
     }, [])
 
@@ -69,7 +87,7 @@ const MessageBoard = () => {
                 {allData ? allData.map((message, index) => {
                     return (
                         <div key={`${message.id}-${index}`}>
-                            <Message message={message}></Message>
+                            <Message message={message} buttonMethods={buttonMethods}></Message>
                         </div>
                     );
                 }) : ''}
