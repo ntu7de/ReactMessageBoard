@@ -28,4 +28,19 @@ router.get('/:id', (req, res) => {
     res.status(200).json({ id });
 }) 
 
+// Upload a new post AND username to database
+router.post('/', async (req, res) => {
+    try {
+        const message = req.body.message;
+        const username = req.body.username;
+        const docRef = await addDoc(collection(db, "messages"), {
+            username: username,
+            message: message,
+        });
+        res.status(200).json({ message: `Successfully stored message with id ${docRef.id}`});
+    } catch (e) {
+        res.status(400).json({ error: e.message })
+    }
+})
+
 module.exports = router;
