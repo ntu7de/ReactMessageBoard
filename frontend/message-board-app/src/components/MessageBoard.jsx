@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../styles/MessageBoard.css'
+import Message from './Message'
 
 const MessageBoard = () => {
     const [message, setMessage] = useState("");
@@ -50,7 +51,13 @@ const MessageBoard = () => {
                 </form>
             </div>
             <div className='previous-messages'>
-                <p>Previous messages will go here.</p>
+                {allMessages ? allMessages.map((message) => {
+                    return (
+                        <>
+                            <Message message={message}></Message>
+                        </>
+                    );
+                }) : ''}
             </div>
         </>
     )
