@@ -16,6 +16,7 @@ const MessageBoard = () => {
         <>
             <h2>Welcome to your message board!</h2>
             {/* <div className='input-container'> */}
+            <form onSubmit={handleSubmit}>
                 <p>Share your thoughts here: </p>
                 <input 
                     type='text' 
@@ -23,6 +24,7 @@ const MessageBoard = () => {
                     onChange={(e) => setMessage(e.target.value)}></input>
                 <br></br>
                 <button type='submit'>Submit</button>
+            </form>
             {/* </div> */}
         </>
     )
