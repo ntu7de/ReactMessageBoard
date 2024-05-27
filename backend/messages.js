@@ -43,4 +43,18 @@ router.post('/', async (req, res) => {
     }
 })
 
+// Edit a post
+router.put('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const newMessage = req.body.message;
+        await updateDoc(doc(db, 'messages', id), {
+            message: newMessage,
+        })
+        res.status(200).json({ message: `Message with ID ${id} successfully updated.`})
+    } catch (e) {
+        res.status(400).json({ error: e.message })
+    }
+})
+
 module.exports = router;
