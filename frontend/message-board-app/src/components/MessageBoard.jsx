@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import '../styles/MessageBoard.css'
 
 const MessageBoard = () => {
     const [message, setMessage] = useState("");
+    const [allMessages, setAllMessages] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -11,6 +13,17 @@ const MessageBoard = () => {
         }
         // add axios response
     }
+
+    // CRUD: Read
+    const fetchMessages = async () => {
+        const response = await axios.get("http://localhost:5005/messages");
+        console.log('response', response.data);
+        setAllMessages(response.data);
+    }
+
+    useEffect(() => {
+        fetchMessages();
+    }, [])
 
     return (
         <>
