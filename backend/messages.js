@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+const db = require('./firebase');
+const { collection, getDocs, updateDoc, doc, addDoc } = require('firebase/firestore');
+
 // Get all messages
 router.get('/', async (req, res) => {
     try {
@@ -12,14 +15,11 @@ router.get('/', async (req, res) => {
                 ...doc.data(),
             });
         });
+        // Return a succses status in addition to the fetched data
         res.status(200).json(ret);
     } catch (e) {
         res.status(400).json({ error: e.message });
-    }
-
-    // Return a succses status in addition to the fetched data
-    res.status(200).json(ret);
-})
+    }})
 
 router.get('/:id', (req, res) => {
     const id = req.params.id;
