@@ -17,13 +17,15 @@ const Message = ({ message, buttonMethods }) => {
     return (
         <>
             <p><b>{message.username}</b></p>
-            <p>{message.message}</p> 
-            <button onClick={handleEdit}>Edit</button>
             {hasClickedEdit ? 
                 <div>
                     <input onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></input>
                     <button onClick={handleEditSubmit}>Submit</button>
-                </div>: ''}
+                </div> : 
+                <div>
+                    <p>{message.message}</p>
+                    <button onClick={handleEdit}>Edit</button>
+                </div>}
             <button onClick={() => buttonMethods[1](message.id)}>Delete</button>
         </>
     )
