@@ -54,8 +54,14 @@ const MessageBoard = () => {
         }
     }
 
-    const handleDelete = (id) => {
-        console.log(id);
+    const handleDelete = async (id) => {
+        try {
+            const response = await axios.delete(`http://localhost:8000/messages/${id}`);
+            // console.log('Delete response: ', response);
+            fetchData();
+        } catch (error) {
+            console.log("Error deleting post: ", error.response ? error.response.data : error.message);
+        }
     }
 
     useEffect(() => {
