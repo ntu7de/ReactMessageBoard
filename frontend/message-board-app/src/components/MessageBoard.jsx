@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../styles/MessageBoard.css'
 import Message from './Message'
+import { Grid } from '@mui/material'
 
 const MessageBoard = () => {
     const [message, setMessage] = useState("");
@@ -72,32 +73,41 @@ const MessageBoard = () => {
     return (
         <>
             <h2>Welcome to your message board!</h2>
-            <div className='input-container'>
-                <form onSubmit={handleSubmit}>
-                    <p>What's your username?</p>
-                    <input 
-                        className='username-input'
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}></input>
-                    <p>Share your thoughts here: </p>
-                    <input 
-                        type='text' 
-                        className='message-input'
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}></input>
-                    <br></br>
-                    <button type='submit'>Submit</button>
-                </form>
-            </div>
-            <div className='previous-messages'>
-                {allData ? allData.map((message, index) => {
-                    return (
-                        <div key={`${message.id}-${index}`}>
-                            <Message message={message} buttonMethods={buttonMethods}></Message>
-                        </div>
-                    );
-                }) : ''}
-            </div>
+            <Grid container
+            alignItems='stretch'
+            columnSpacing={2}
+            rowSpacing={2}>
+                <Grid item xs='auto' sm={3}/>
+                <Grid item xs={12} sm={3}>
+                    <div className='input-container'>
+                        <form onSubmit={handleSubmit}>
+                            <p>Username:</p>
+                            <input 
+                                className='username-input'
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}></input>
+                            <p>Share your thoughts here: </p>
+                            <input 
+                                type='text' 
+                                className='message-input'
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}></input>
+                            <br></br>
+                            <button type='submit'>Submit</button>
+                        </form>
+                    </div>
+                    <div className='previous-messages'>
+                        {allData ? allData.map((message, index) => {
+                            return (
+                                <div key={`${message.id}-${index}`}>
+                                    <Message message={message} buttonMethods={buttonMethods}></Message>
+                                </div>
+                            );
+                        }) : ''}
+                    </div>
+                </Grid>
+                <Grid item xs={12} sm={4}/>
+            </Grid>
         </>
     )
 }
