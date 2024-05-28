@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const db = require('./firebase');
-const { collection, getDocs, updateDoc, doc, addDoc } = require('firebase/firestore');
+const { collection, getDocs, updateDoc, doc, addDoc, deleteDoc } = require('firebase/firestore');
 
 // Get all messages
 router.get('/', async (req, res) => {
@@ -52,6 +52,17 @@ router.put('/:id', async (req, res) => {
             message: newMessage,
         })
         res.status(200).json({ message: `Message with ID ${id} successfully updated.`})
+    } catch (e) {
+        res.status(400).json({ error: e.message })
+    }
+})
+
+// Delete a post
+router.delete('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        await deleteDoc(doc(db, 'messages', id));
+        res.status(200).json({ message: `Message with ID ${id} successfully deleted.` });
     } catch (e) {
         res.status(400).json({ error: e.message })
     }
